@@ -59,6 +59,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
                     return@OnEditorActionListener false
                 }
             }
+
             false
         })
     }
