@@ -11,15 +11,14 @@ import com.geekbrains.tests.model.SearchResult
 import com.geekbrains.tests.presenter.RepositoryContract
 import com.geekbrains.tests.presenter.search.PresenterSearchContract
 import com.geekbrains.tests.presenter.search.SearchPresenter
-import com.geekbrains.tests.repository.GitHubApi
-import com.geekbrains.tests.repository.GitHubRepository
+import com.geekbrains.tests.repository.FakeGitHubRepository
 import com.geekbrains.tests.view.details.DetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-class MainActivity : AppCompatActivity(), ViewSearchContract {
+class FakeMainActivity : AppCompatActivity(), ViewSearchContract {
 
     private val adapter = SearchResultAdapter()
     private val presenter: PresenterSearchContract = SearchPresenter(this, createRepository())
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
                     return@OnEditorActionListener true
                 } else {
                     Toast.makeText(
-                        this@MainActivity,
+                        this@FakeMainActivity,
                         getString(R.string.enter_search_word),
                         Toast.LENGTH_SHORT
                     ).show()
@@ -64,8 +63,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
         })
     }
 
-    private fun createRepository(): RepositoryContract =
-        GitHubRepository(createRetrofit().create(GitHubApi::class.java))
+    private fun createRepository(): RepositoryContract = FakeGitHubRepository()
 
     private fun createRetrofit(): Retrofit {
         return Retrofit.Builder()
@@ -98,6 +96,7 @@ class MainActivity : AppCompatActivity(), ViewSearchContract {
 
     override fun displayLoading(show: Boolean) {
         if (show) {
+            Toast.makeText(this, "IS A FAKE", Toast.LENGTH_SHORT).show()
             progressBar.visibility = View.VISIBLE
         } else {
             progressBar.visibility = View.GONE
