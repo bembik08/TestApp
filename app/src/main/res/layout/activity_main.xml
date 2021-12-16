@@ -27,14 +27,20 @@
             android:singleLine="true"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
+    <Button
+            android:id="@+id/searchButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin"
+            android:text="@string/find_repositories"
+            app:layout_constraintTop_toBottomOf="@id/searchEditText" />
     <Button
             android:id="@+id/toDetailsActivityButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin"
             android:text="@string/to_details"
-            app:layout_constraintTop_toBottomOf="@id/searchEditText" />
+            app:layout_constraintTop_toBottomOf="@id/searchButton" />
 
     <TextView
             android:id="@+id/totalCountTextView"

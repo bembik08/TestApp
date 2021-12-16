@@ -60,7 +60,6 @@ class MainActivityEspressoTest {
         onView(withId(R.id.searchEditText)).perform(replaceText("algol"), closeSoftKeyboard())
         onView(withId(R.id.searchEditText)).perform(pressImeActionButton())
         onView(withId(R.id.progressBar)).check(matches(isDisplayed()))
-
     }
 
     private fun delay(): ViewAction? {
