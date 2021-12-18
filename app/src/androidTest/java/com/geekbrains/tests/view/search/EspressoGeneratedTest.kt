@@ -29,72 +29,105 @@ class EspressoGeneratedTest {
     @Test
     fun espressoGeneratedTest() {
         val materialButton = onView(
-            allOf(withId(R.id.toDetailsActivityButton), withText("to details"),
-            childAtPosition(
-            childAtPosition(
-            withId(android.R.id.content),
-            0),
-            3),
-            isDisplayed()))
-            materialButton.perform(click())
-        
+            allOf(
+                withId(R.id.toDetailsActivityButton), withText("to details"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.content),
+                        0
+                    ),
+                    3
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton.perform(click())
+
         val textView = onView(
-            allOf(withId(R.id.totalCountTextView), withText("Number of results: 0"),
-            withParent(withParent(withId(android.R.id.content))),
-            isDisplayed()))
-            textView.check(matches(withText("Number of results: 0")))
-        
+            allOf(
+                withId(R.id.totalCountTextView), withText("Number of results: 0"),
+                withParent(withParent(withId(android.R.id.content))),
+                isDisplayed()
+            )
+        )
+        textView.check(matches(withText("Number of results: 0")))
+
         val textView2 = onView(
-            allOf(withId(R.id.totalCountTextView), withText("Number of results: 0"),
-            withParent(withParent(withId(android.R.id.content))),
-            isDisplayed()))
-            textView2.check(matches(withText("Number of results: 0")))
-        
+            allOf(
+                withId(R.id.totalCountTextView), withText("Number of results: 0"),
+                withParent(withParent(withId(android.R.id.content))),
+                isDisplayed()
+            )
+        )
+        textView2.check(matches(withText("Number of results: 0")))
+
         val materialButton2 = onView(
-            allOf(withId(R.id.incrementButton), withText("+"),
-            childAtPosition(
-            childAtPosition(
-            withId(android.R.id.content),
-            0),
-            2),
-            isDisplayed()))
-            materialButton2.perform(click())
-        
+            allOf(
+                withId(R.id.incrementButton), withText("+"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.content),
+                        0
+                    ),
+                    2
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton2.perform(click())
+
         val textView3 = onView(
-            allOf(withId(R.id.totalCountTextView), withText("Number of results: 1"),
-            withParent(withParent(withId(android.R.id.content))),
-            isDisplayed()))
-            textView3.check(matches(withText("Number of results: 1")))
-        
+            allOf(
+                withId(R.id.totalCountTextView), withText("Number of results: 1"),
+                withParent(withParent(withId(android.R.id.content))),
+                isDisplayed()
+            )
+        )
+        textView3.check(matches(withText("Number of results: 1")))
+
         val materialButton3 = onView(
-            allOf(withId(R.id.decrementButton), withText("-"),
-            childAtPosition(
-            childAtPosition(
-            withId(android.R.id.content),
-            0),
-            0),
-            isDisplayed()))
-            materialButton3.perform(click())
-        
+            allOf(
+                withId(R.id.decrementButton), withText("-"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.content),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton3.perform(click())
+
         val materialButton4 = onView(
-            allOf(withId(R.id.decrementButton), withText("-"),
-            childAtPosition(
-            childAtPosition(
-            withId(android.R.id.content),
-            0),
-            0),
-            isDisplayed()))
-            materialButton4.perform(click())
-        
+            allOf(
+                withId(R.id.decrementButton), withText("-"),
+                childAtPosition(
+                    childAtPosition(
+                        withId(android.R.id.content),
+                        0
+                    ),
+                    0
+                ),
+                isDisplayed()
+            )
+        )
+        materialButton4.perform(click())
+
         val textView4 = onView(
-            allOf(withId(R.id.totalCountTextView), withText("Number of results: -1"),
-            withParent(withParent(withId(android.R.id.content))),
-            isDisplayed()))
-            textView4.check(matches(withText("Number of results: -1")))
-        }
-    
+            allOf(
+                withId(R.id.totalCountTextView), withText("Number of results: -1"),
+                withParent(withParent(withId(android.R.id.content))),
+                isDisplayed()
+            )
+        )
+        textView4.check(matches(withText("Number of results: -1")))
+    }
+
     private fun childAtPosition(
-            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
+        parentMatcher: Matcher<View>, position: Int
+    ): Matcher<View> {
 
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {

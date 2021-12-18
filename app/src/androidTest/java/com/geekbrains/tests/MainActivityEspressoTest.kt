@@ -40,7 +40,7 @@ class MainActivityEspressoTest {
     }
     @Test
     fun button_Is_HasText(){
-        onView(withId(R.id.toDetailsActivityButton)).check(matches(withText("TO DETAILS")))
+        onView(withId(R.id.toDetailsActivityButton)).check(matches(withText(BUTTON_TEXT_TO_DETAILS)))
     }
     @Test
     fun editTextView_Is_Displayed(){
@@ -49,10 +49,10 @@ class MainActivityEspressoTest {
     @Test
     fun activitySearch_IsWorking() {
         onView(withId(R.id.searchEditText)).perform(click())
-        onView(withId(R.id.searchEditText)).perform(replaceText("algol"), closeSoftKeyboard())
+        onView(withId(R.id.searchEditText)).perform(replaceText(SEARCH_EDIT_TEXT_TEST_VALUE), closeSoftKeyboard())
         onView(withId(R.id.searchEditText)).perform(pressImeActionButton())
         onView(isRoot()).perform(delay())
-        onView(withId(R.id.totalCountTextView)).check(matches(withText("Number of results: 2655")))
+        onView(withId(R.id.totalCountTextView)).check(matches(withText(TEST_NUMBERS_OF_REAL_DATA)))
     }
     @Test
     fun progressBar_isDisplayed(){
@@ -67,7 +67,7 @@ class MainActivityEspressoTest {
             override fun getConstraints(): Matcher<View> = isRoot()
             override fun getDescription(): String = "wait for $2 seconds"
             override fun perform(uiController: UiController, v: View?) {
-                uiController.loopMainThreadForAtLeast(2000)
+                uiController.loopMainThreadForAtLeast(DELAY_TIME)
             }
         }
     }
