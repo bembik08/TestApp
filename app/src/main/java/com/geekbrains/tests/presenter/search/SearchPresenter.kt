@@ -1,9 +1,13 @@
 package com.geekbrains.tests.presenter.search
 
 import com.geekbrains.tests.model.SearchResponse
-import com.geekbrains.tests.presenter.RepositoryContract
 import com.geekbrains.tests.repository.RepositoryCallback
+import com.geekbrains.tests.repository.RepositoryContract
+import com.geekbrains.tests.utils.ScheduledProvider
+import com.geekbrains.tests.utils.SchedulerImpl
 import com.geekbrains.tests.view.search.ViewSearchContract
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.observers.DisposableObserver
 import retrofit2.Response
 
 /**
@@ -16,12 +20,41 @@ import retrofit2.Response
 
 internal class SearchPresenter internal constructor(
     private val viewContract: ViewSearchContract,
-    private val repository: RepositoryContract
+    private val repository: RepositoryContract,
+    private val scheduler: ScheduledProvider = SchedulerImpl()
 ) : PresenterSearchContract, RepositoryCallback {
 
     override fun searchGitHub(searchQuery: String) {
-        viewContract.displayLoading(true)
-        repository.searchGithub(searchQuery, this)
+        val compositeDisposable = CompositeDisposable()
+        compositeDisposable.add(
+            repository.searchGithub(searchQuery)
+                .subscribeOn(scheduler.io())
+                .observeOn(scheduler.main())
+                .doOnSubscribe { viewContract.displayLoading(true) }
+                .doOnTerminate { viewContract.displayLoading(false) }
+                .subscribeWith(object : DisposableObserver<SearchResponse>() {
+                    override fun onNext(searchResponse: SearchResponse) {
+                        val searchResult = searchResponse.searchResults
+                        val totalCount = searchResponse.totalCount
+                        if (searchResult != null && totalCount != null) {
+                            viewContract.displaySearchResults(
+                                searchResult,
+                                totalCount
+                            )
+                        } else {
+                            viewContract.displayError("Response is null")
+                        }
+                    }
+
+                    override fun onError(error: Throwable) {
+                        viewContract.displayError(error.localizedMessage)
+                    }
+
+                    override fun onComplete() {
+                    }
+                }
+            )
+        )
     }
 
     override fun handleGitHubResponse(response: Response<SearchResponse?>?) {
