@@ -30,7 +30,7 @@ class OpenOtherAppsTest {
             )
         settingsApp.clickAndWaitForNewWindow()
         val settingsValidation =
-            uiDevice.findObject(UiSelector().packageName("com.android.settings"))
+            uiDevice.findObject(UiSelector().packageName("com.android.messages"))
         Assert.assertTrue(settingsValidation.exists())
     }
 }
