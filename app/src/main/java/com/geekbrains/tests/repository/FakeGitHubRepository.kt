@@ -2,7 +2,7 @@ package com.geekbrains.tests.repository
 
 import com.geekbrains.tests.model.SearchResponse
 import com.geekbrains.tests.model.SearchResult
-import com.geekbrains.tests.presenter.RepositoryContract
+import io.reactivex.Observable
 import retrofit2.Response
 import kotlin.random.Random
 
@@ -15,7 +15,10 @@ internal class FakeGitHubRepository : RepositoryContract {
         callback.handleGitHubResponse(Response.success(getFakeResponse()))
     }
 
-    private fun getFakeResponse(): SearchResponse? {
+    override fun searchGithub(query: String): Observable<SearchResponse> = Observable.just(getFakeResponse())
+    override suspend fun searchGithubAsync(query: String): SearchResponse = getFakeResponse()
+
+    private fun getFakeResponse(): SearchResponse {
         val list: MutableList<SearchResult> = mutableListOf()
         for (index in 1..100) {
             list.add(
